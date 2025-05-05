@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Championship | Elite Esports Tournament</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #0a0a12;
+            --secondary-dark: #141420;
+            --accent-color: #a2ff00;
+            --accent-glow: 0 0 10px rgba(162, 255, 0, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+        }
+
+        body {
+            font-family: 'Rajdhani', 'Orbitron', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Custom Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500;700&display=swap');
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .text-accent {
+            color: var(--accent-color);
+        }
+
+        .glow-text {
+            text-shadow: var(--accent-glow);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(10, 10, 18, 0.9);
+            border-bottom: 1px solid rgba(162, 255, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .nav-link {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 10, 18, 0.9) 0%, rgba(10, 10, 18, 0.3) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: black;
+            /* animation: pulse 2s infinite; */
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+        }
+
+        .tournament-poster {
+            width: 100%;
+            max-width: 800px;
+            border: 3px solid var(--accent-color);
+            box-shadow: var(--accent-glow), 0 0 30px rgba(0, 0, 0, 0.8);
+            margin: 2rem auto;
+            transition: transform 0.3s ease;
+        }
+
+        .tournament-poster:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 0;
+            padding: 12px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(162, 255, 0, 0.2);
+            box-shadow: var(--accent-glow);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(162, 255, 0, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* About Section */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background: var(--accent-color);
+            box-shadow: var(--accent-glow);
+        }
+
+        .about-card {
+            background-color: var(--secondary-dark);
+            border: 1px solid rgba(162, 255, 0, 0.3);
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--accent-glow);
+            transform: translateY(-5px);
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        /* Schedule Section */
+        .schedule-tabs {
+            border-bottom: 1px solid rgba(162, 255, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--text-secondary);
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            padding: 15px 25px;
+            position: relative;
+            background-color: transparent;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--accent-color);
+            background-color: transparent;
+            border: none;
+        }
+
+        .nav-tabs .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            box-shadow: var(--accent-glow);
+        }
+
+        .schedule-day-card {
+            background-color: var(--secondary-dark);
+            border: 1px solid rgba(162, 255, 0, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-day-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--accent-glow);
+        }
+
+        .day-header {
+            border-bottom: 1px solid rgba(162, 255, 0, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .day-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+        }
+
+        .streamer-card {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: rgba(20, 20, 32, 0.7);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .streamer-card:hover {
+            background-color: rgba(162, 255, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .streamer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .streamer-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .streamer-platform {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .stream-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-left: auto;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .stream-link:hover {
+            color: white;
+            text-shadow: var(--accent-glow);
+        }
+
+        /* Teams Section */
+        .team-card {
+            background-color: var(--secondary-dark);
+            border: 1px solid rgba(162, 255, 0, 0.3);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--accent-glow);
+            transform: translateY(-5px);
+        }
+
+        .team-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(162, 255, 0, 0.5));
+        }
+
+        .team-name {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        /* Enhanced Standings Table Styles */
+.standings-table {
+    background-color: var(--primary-dark);
+    border: 2px solid var(--accent-color);
+    box-shadow: var(--accent-glow), 0 0 30px rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+.standings-table:hover {
+    box-shadow: 0 0 20px rgba(162, 255, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.9);
+    transform: translateY(-5px);
+}
+
+.table {
+    margin-bottom: 0;
+    color: var(--text-primary);
+    border-color: rgba(162, 255, 0, 0.3);
+}
+
+.table thead th {
+    background-color: rgba(20, 20, 32, 0.9);
+    border-bottom: 2px solid var(--accent-color);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 500;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px;
+    text-align: center;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+    background-color: rgba(20, 20, 32, 0.7);
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: rgba(20, 20, 32, 0.9);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(162, 255, 0, 0.1);
+    transform: scale(1.01);
+}
+
+.table td, .table th {
+    padding: 12px 15px;
+    vertical-align: middle;
+    border-color: rgba(162, 255, 0, 0.1);
+    text-align: center;
+}
+
+.team-cell {
+    display: flex;
+    align-items: center;
+    text-align: left !important;
+}
+
+.team-cell img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.standing-row:hover .team-cell img {
+    transform: rotate(10deg) scale(1.1);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.position-cell {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.win-cell {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.loss-cell {
+    color: #ff5555;
+}
+
+.points-cell {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: white;
+}
+
+.streak-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.win-streak {
+    background-color: rgba(162, 255, 0, 0.2);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    animation: pulseWin 2s infinite;
+}
+
+.lose-streak {
+    background-color: rgba(255, 85, 85, 0.2);
+    color: #ff5555;
+    border: 1px solid #ff5555;
+    animation: pulseLose 2s infinite;
+}
+
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-dark);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(162, 255, 0, 0.3);
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(162, 255, 0, 0.1);
+            color: var(--text-primary);
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--accent-glow);
+        }
+
+        .footer-links h5 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(162, 255, 0, 0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(162, 255, 0, 0.8); }
+            50% { text-shadow: 0 0 20px rgba(162, 255, 0, 0.8), 0 0 30px rgba(162, 255, 0, 0.5); }
+            100% { text-shadow: 0 0 10px rgba(162, 255, 0, 0.8); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+		
+		
+		/* standings */
+		@keyframes pulseWin {
+    0% { box-shadow: 0 0 0 0 rgba(162, 255, 0, 0.4); }
+    70% { box-shadow: 0 0 0 5px rgba(162, 255, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(162, 255, 0, 0); }
+}
+
+@keyframes pulseLose {
+    0% { box-shadow: 0 0 0 0 rgba(255, 85, 85, 0.4); }
+    70% { box-shadow: 0 0 0 5px rgba(255, 85, 85, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 85, 85, 0); }
+}
+
+.glow-row {
+    animation: headerGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes headerGlow {
+    from { box-shadow: inset 0 0 10px rgba(162, 255, 0, 0); }
+    to { box-shadow: inset 0 0 20px rgba(162, 255, 0, 0.3); }
+}
+
+.standing-row {
+    animation: fadeIn 0.5s ease-in-out;
+    animation-fill-mode: both;
+}
+
+.standing-row:nth-child(1) { animation-delay: 0.1s; }
+.standing-row:nth-child(2) { animation-delay: 0.2s; }
+.standing-row:nth-child(3) { animation-delay: 0.3s; }
+.standing-row:nth-child(4) { animation-delay: 0.4s; }
+.standing-row:nth-child(5) { animation-delay: 0.5s; }
+.standing-row:nth-child(6) { animation-delay: 0.6s; }
+.standing-row:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* */
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 500px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .btn-primary {
+                padding: 10px 20px;
+            }
+            
+            .tournament-poster {
+                margin: 1rem auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+           <!-- <a class="navbar-brand glow-text" href="#">UCL</a> -->
+		   <a class="navbar-brand glow-text" href="#"><img src="uc1.png" style="height:40px;"/></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#schedule">Schedule</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#teams">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#standings">Standings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="dmy.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content container text-center">
+            <h1 class="hero-title">UPCORE CHAMPIONS LEAGUE</h1>
+            <p class="hero-tagline">#RiseUp</p>
+            
+            <div class="mt-4">
+                <a href="#schedule" class="btn btn-primary me-3">VIEW SCHEDULE</a>
+                <a href="#schedule" class="btn btn-primary">WATCH LIVE</a>
+            </div>
+        </div>
+    </section>
+	<center>
+	<div style="background-color:black;">
+<img src="1.jpg" alt="Nexus Championship Poster" class="tournament-poster">
+</div>
+</center>
+    <!-- About Section -->
+    <section id="about" class="section" style="background-image : url('bg3.jpg');background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; ">
+        <div class="container">
+            <h2 class="section-title text-center">TOURNAMENT <span class="text-accent">DETAILS</span></h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="about-card">
+                        <div class="info-item">
+                            <h5 class="info-label">Tournament Name</h5>
+                            <p>UPCore Champions League</p>
+                        </div>
+                        <div class="info-item">
+                            <h5 class="info-label">Game</h5>
+                            <p>Brawl Stars</p>
+                        </div>
+                        <div class="info-item">
+                            <h5 class="info-label">Prize Pool</h5>
+							<p><strong>Qualifiers:</strong> 500$+ each</p>
+                         
+                            <p><strong>Playoffs:</strong> 2000$ + Crowd Funding</p>
+                           
+                        </div>
+                        <div class="info-item">
+                            <h5 class="info-label">Format</h5>
+							<p><strong>Stage 1:</strong> 4 Open Qualifiers (April 17 - April 29)</p>
+                            <p><strong>Stage 2:</strong> 7 Round Robin Rounds (May 5 - May 12)</p>
+                            <p><strong>Stage 3:</strong> 2 Playoff Rounds (May 29 - May 30)</p>
+                        </div>
+                        <div class="info-item">
+                            <h5 class="info-label">Broadcast</h5>
+                            <p>Live on Twitch & YouTube with multiple creator streams</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="section bg-dark" style="background-image : url('bg1.jpg');background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; ">
+        <div class="container" >
+            <h2 class="section-title text-center">TOURNAMENT <span class="text-accent">SCHEDULE</span></h2>
+            
+            <ul class="nav nav-tabs schedule-tabs justify-content-center" id="scheduleTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="stage2-tab" data-bs-toggle="tab" data-bs-target="#stage2" type="button" role="tab" aria-controls="stage2" aria-selected="true">STAGE 2</button>
+                </li>
+				<!--
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="stage3-tab" data-bs-toggle="tab" data-bs-target="#stage3" type="button" role="tab" aria-controls="stage3" aria-selected="false">STAGE 3</button>
+                </li>-->
+            </ul>
+            
+            <div class="tab-content" id="scheduleTabsContent">
+                <div class="tab-pane fade show active" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
+                    <!-- Stage 2 Schedule -->
+                    <div class="row">
+					
+                        <div class="col-md-6 col-lg-4">
+                            <div class="schedule-day-card">
+                                <div class="day-header">
+                                    <h4 class="day-title">ROUND ROBIN DAY 1</h4>
+                                    <p class="text-white">May 5, 2025</p>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="gl.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Ghostify Labs</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@GhostifyLabs" class="stream-link" target="_blank">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="bm.png" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Brawl Monkey</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@Brawlmonkeyy" class="stream-link" target="_blank">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+								<div class="streamer-card">
+                                    <img src="20.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">20WENTY</h6>
+                                        <p class="streamer-platform">Twitch</p>
+                                    </div>
+                                    <a href="https://www.twitch.tv/20wenty_" class="stream-link" target="_blank">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="vp.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Vishwas Plyz</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@vishwasplyz" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1" target="_blank"></i></a>
+                                </div>
+								<div class="streamer-card">
+                                    <img src="aj.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">AJ7 Brawl Stars</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@AJ._7" class="stream-link" target="_blank">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+								<div class="streamer-card">
+                                    <img src="as.png" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">AS Brawl Time</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@ASBrawlTime" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1" target="_blank"></i></a>
+                                </div>
+								<div class="streamer-card">
+                                    <img src="np.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Nirmal Plyz</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@NirmalPlyz" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1" target="_blank"></i></a>
+                                </div>
+								<div class="streamer-card">
+                                    <img src="mp.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Morty Brawl Stars</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@MORTY-BS15" class="stream-link" target="_blank">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+								<div class="streamer-card">
+                                    <img src="ap.jpg" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Agni Plyz</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="https://www.youtube.com/@AgniPlyz" class="stream-link" target="_blank">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+								
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-lg-4">
+                            <div class="schedule-day-card">
+                                <div class="day-header">
+                                    <h4 class="day-title">ROUND ROBIN DAY 2</h4>
+                                    <p class="text-white">May 6, 2025</p>
+                                </div>
+                                <p>Coming Soon...</p>
+                            </div>
+                        </div> 
+                       
+                        <div class="col-md-6 col-lg-4">
+                            <div class="schedule-day-card">
+                                <div class="day-header">
+                                    <h4 class="day-title">ROUND ROBIN DAY 3</h4>
+                                    <p class="text-white">May 7, 2025</p>
+                                </div>
+                                <p>Coming Soon...</p>
+                            </div>
+                        </div> 
+                        
+                        <!-- Additional rounds would go here -->
+                    </div>
+                </div>
+                
+                <!--<div class="tab-pane fade" id="stage3" role="tabpanel" aria-labelledby="stage3-tab">-->
+                    <!-- Stage 3 Schedule -->
+                    <!-- <div class="row">
+                        <div class="col-md-6">
+                            <div class="schedule-day-card">
+                                <div class="day-header">
+                                    <h4 class="day-title">SEMI-FINALS</h4>
+                                    <p class="text-muted">July 29, 2023</p>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="https://via.placeholder.com/50x50" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Shroud</h6>
+                                        <p class="streamer-platform">Twitch</p>
+                                    </div>
+                                    <a href="#" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="https://via.placeholder.com/50x50" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Official Broadcast</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="#" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="schedule-day-card">
+                                <div class="day-header">
+                                    <h4 class="day-title">GRAND FINALS</h4>
+                                    <p class="text-muted">August 5, 2023</p>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="https://via.placeholder.com/50x50" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Official Broadcast</h6>
+                                        <p class="streamer-platform">Twitch</p>
+                                    </div>
+                                    <a href="#" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="https://via.placeholder.com/50x50" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Pokimane</h6>
+                                        <p class="streamer-platform">Twitch</p>
+                                    </div>
+                                    <a href="#" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                                <div class="streamer-card">
+                                    <img src="https://via.placeholder.com/50x50" alt="Streamer Avatar" class="streamer-avatar">
+                                    <div>
+                                        <h6 class="streamer-name">Ninja</h6>
+                                        <p class="streamer-platform">YouTube</p>
+                                    </div>
+                                    <a href="#" class="stream-link">WATCH <i class="fas fa-external-link-alt ms-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                <!-- </div>-->
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams Section -->
+    <section id="teams" class="section" style="background-image : url('bg3.jpg');background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; ">
+        <div class="container">
+            <h2 class="section-title text-center">PARTICIPATING <span class="text-accent">TEAMS</span></h2>
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="e6.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">UPCore Esports</h4>
+                        <p>AshKing | Trashant | Yash</p>
+						
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="e5.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">Young Blood</h4>
+                        <p>Prime | Hiroshi | Vex</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="r1.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">Revenant XSpark</h4>
+                        <p>Sergeant | X9Jay | Response </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="m1.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">Monarchy</h4>
+                        <p>CaptainRoxx | Sraan | Walkthrough</p>
+                    </div>
+                </div>
+				
+				<div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="e4.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">Overthrow</h4>
+                        <p>Sufiyan | Muzan | Valiant</p>
+                    </div>
+                </div>
+				<div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="e1.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">77</h4>
+                        <p>Rrx | Habg | M7D</p>
+                    </div>
+                </div>
+				<div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="o1.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">Ok</h4>
+                        <p>AK | Faheem | Renji</p>
+                    </div>
+                </div>
+				<div class="col-md-6 col-lg-3">
+                    <div class="team-card">
+                        <img src="f1.png" alt="Team Logo" class="team-logo">
+                        <h4 class="team-name">Finessed</h4>
+                        <p>HydraKhayatt | Speerrow | Aarensis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Standings Section -->
+<section id="standings" class="section bg-dark" style="background-image : url('bg1.jpg');background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; ">
+    <div class="container">
+        <h2 class="section-title text-center">CURRENT <span class="text-accent">STANDINGS</span></h2>
+        <div class="standings-table">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="glow-row">
+                        <th>#</th>
+                        <th>Team</th>
+                        <th>W</th>
+                        <th>L</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">1</td>
+                        <td class="team-cell bg-dark">
+                            <img src="e5.png" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">Young Blood</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+                    <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">2</td>
+                        <td class="team-cell bg-dark">
+                            <img src="e6.png" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">UPCore Esports</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					 
+					  <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">3</td>
+                        <td class="team-cell bg-dark">
+                            <img src="rr1.jpg" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">Revenant XSpark</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					  <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">4</td>
+                        <td class="team-cell bg-dark">
+                            <img src="e3.jpg" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">Monarchy</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					  <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">5</td>
+                        <td class="team-cell bg-dark">
+                            <img src="e4.png" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">Overthrow</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					  <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">6</td>
+                        <td class="team-cell bg-dark">
+                            <img src="e1.png" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">77</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					  <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">7</td>
+                        <td class="team-cell bg-dark">
+                            <img src="e2.jpg" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">OK</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					 <tr class="standing-row">
+                        <td class="position-cell bg-dark text-white">8</td>
+                        <td class="team-cell bg-dark">
+                            <img src="f1.png" alt="Team Logo" class="team-logo-sm">
+                            <span class="text-white">Finessed</span>
+                        </td>
+                        <td class="win-cell bg-dark text-white">0</td>
+                        <td class="loss-cell bg-dark text-white">0</td>
+                       
+                    </tr>
+					
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="#" class="footer-logo text-white" style="text-decoration :none;">UPCore Champions League</a>
+                    <p class="text-white">The premier Brawl Stars tournament series featuring the best teams in the world.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/UPCoreEsports" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.twitch.tv/upcoreesports/" class="social-link" target="_blank"><i class="fab fa-twitch"></i></a>
+                        <a href="https://youtube.com/@upcoreesports" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/upcoreesports" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://discord.gg/8bT8CzcbAp" class="social-link" target="_blank"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>NAVIGATION</h5>
+                        <ul>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#schedule">Schedule</a></li>
+                            <li><a href="#teams">Teams</a></li>
+                            <li><a href="#standings">Standings</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>RESOURCES</h5>
+                        <ul>
+                            <li><a href="UCL_S1_RULEBOOK.pdf" target="_blank">RuleBook</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="footer-links">
+                        <h5>CONTACT</h5>
+                        <ul>
+                            <li><a href="mailto:contact@upcoreesports.com">contact@upcoreesports.com</a></li>
+                           
+                            <li><a href="https://discord.gg/8bT8CzcbAp" target="_blank">Join Our Discord</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p class="mb-0">&copy; 2025 UPCore Esports. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add smooth scrolling to all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(10, 10, 18, 0.95)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(10, 10, 18, 0.9)';
+            }
+        });
+    </script>
+</body>
+</html>
